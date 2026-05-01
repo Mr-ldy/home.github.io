@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A clean glass-style personal navigation panel for GitHub Pages."
+    />
+    <title>Sun-Panel</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <button class="admin-fab" id="admin-toggle" type="button" aria-label="后台" title="后台">
+      <i data-lucide="settings" aria-hidden="true"></i>
+      <span class="icon-fallback">Admin</span>
+    </button>
+
+    <main class="panel-shell" aria-label="个人导航面板">
+      <section class="hero" aria-labelledby="site-title">
+        <div class="title-row">
+          <h1 id="site-title">Sun-Panel</h1>
+          <span class="title-divider" aria-hidden="true"></span>
+          <div class="clock-block" aria-live="polite">
+            <time id="clock" datetime="">00:00:00</time>
+            <span id="date">--</span>
+          </div>
+        </div>
+
+        <form class="search-card" id="search-form" role="search">
+          <span class="search-brand" aria-hidden="true">
+            <i data-lucide="search-check"></i>
+            <span class="icon-fallback">SP</span>
+          </span>
+          <input
+            id="search-input"
+            type="search"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="请输入搜索内容"
+            aria-label="搜索内容"
+          />
+          <button class="icon-button" type="submit" aria-label="搜索" title="搜索">
+            <i data-lucide="search" aria-hidden="true"></i>
+            <span class="icon-fallback">Go</span>
+          </button>
+        </form>
+
+        <div class="search-tabs" id="search-tabs" aria-label="搜索源"></div>
+      </section>
+
+      <section class="link-zone" id="link-zone" aria-label="导航链接"></section>
+
+      <section class="admin-panel" id="admin-panel" aria-labelledby="admin-title" hidden>
+        <div class="admin-panel-head">
+          <div>
+            <h2 id="admin-title">后台</h2>
+            <p id="admin-status">未登录</p>
+          </div>
+          <button class="icon-button" id="admin-close" type="button" aria-label="关闭" title="关闭">
+            <i data-lucide="x" aria-hidden="true"></i>
+            <span class="icon-fallback">X</span>
+          </button>
+        </div>
+
+        <form class="admin-form" id="login-form">
+          <label>
+            <span>账号</span>
+            <input id="admin-account" type="text" autocomplete="username" required />
+          </label>
+          <label>
+            <span>密码</span>
+            <input id="admin-password" type="password" autocomplete="current-password" required />
+          </label>
+          <button class="primary-button" type="submit">登录</button>
+        </form>
+
+        <div class="admin-dashboard" id="admin-dashboard" hidden>
+          <div class="admin-section">
+            <div class="admin-subhead">
+              <h3>站点设置</h3>
+              <button class="ghost-button" id="admin-logout" type="button">退出</button>
+            </div>
+            <form class="admin-form admin-title-form" id="title-form">
+              <label>
+                <span>大标题</span>
+                <input id="panel-title-input" type="text" maxlength="32" required />
+              </label>
+              <button class="primary-button" type="submit">保存标题</button>
+            </form>
+          </div>
+
+          <details class="admin-section admin-details">
+            <summary class="admin-summary">
+              <span>分组管理</span>
+              <i data-lucide="chevron-down" aria-hidden="true"></i>
+            </summary>
+            <form class="admin-form admin-title-form" id="group-form">
+              <label>
+                <span>新增分组</span>
+                <input id="group-title" type="text" maxlength="32" placeholder="比如：常用工具" required />
+              </label>
+              <button class="primary-button" type="submit">添加分组</button>
+            </form>
+            <div class="group-list" id="group-list"></div>
+          </details>
+
+          <details class="admin-section admin-details">
+            <summary class="admin-summary">
+              <span>链接管理</span>
+              <i data-lucide="chevron-down" aria-hidden="true"></i>
+            </summary>
+            <form class="admin-form admin-form-wide" id="link-form">
+              <label>
+                <span>分组</span>
+                <select id="link-group" required></select>
+              </label>
+              <label>
+                <span>标题</span>
+                <input id="link-title" type="text" maxlength="30" required />
+              </label>
+              <label>
+                <span>标签</span>
+                <input id="link-tag" type="text" maxlength="40" required />
+              </label>
+              <label>
+                <span>链接</span>
+                <input id="link-url" type="text" inputmode="url" placeholder="https://example.com" required />
+              </label>
+              <label>
+                <span>图标</span>
+                <input id="link-icon" type="text" value="bookmark" maxlength="24" />
+              </label>
+              <label>
+                <span>颜色</span>
+                <input id="link-color" type="color" value="#72d6ff" />
+              </label>
+              <button class="primary-button" type="submit">添加</button>
+            </form>
+            <div class="custom-list" id="custom-list"></div>
+          </details>
+
+          <details class="admin-section admin-details">
+            <summary class="admin-summary">
+              <span>修改密码</span>
+              <i data-lucide="chevron-down" aria-hidden="true"></i>
+            </summary>
+            <form class="admin-form admin-form-wide" id="password-form">
+              <label>
+                <span>旧密码</span>
+                <input id="old-password" type="password" autocomplete="current-password" required />
+              </label>
+              <label>
+                <span>新密码</span>
+                <input id="new-password" type="password" autocomplete="new-password" minlength="4" required />
+              </label>
+              <label>
+                <span>确认密码</span>
+                <input id="confirm-password" type="password" autocomplete="new-password" minlength="4" required />
+              </label>
+              <button class="primary-button" type="submit">修改密码</button>
+            </form>
+          </details>
+        </div>
+
+        <p class="admin-feedback" id="admin-feedback" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <template id="group-template">
+      <section class="link-group">
+        <h2></h2>
+        <div class="link-grid"></div>
+      </section>
+    </template>
+
+    <template id="card-template">
+      <a class="nav-card" target="_blank" rel="noopener noreferrer">
+        <span class="card-icon" aria-hidden="true">
+          <i></i>
+          <span class="icon-fallback"></span>
+        </span>
+        <span class="card-text">
+          <strong></strong>
+          <small></small>
+        </span>
+      </a>
+    </template>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
